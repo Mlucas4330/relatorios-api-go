@@ -6,46 +6,46 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// Book
+func Book(c *fiber.Ctx) error {
+	tickets := []models.Ticket{}
+	ticket := new(models.Ticket)
+	if err := c.BodyParser(ticket); err != nil {
+		return c.Status(400).JSON(err.Error())
+	}
+	database.DB.Db.Where("title = ?", ticket.Ticket).Find(&tickets)
+	return c.Status(200).JSON(tickets)
+}
+
 // AddBook
 func AddBook(c *fiber.Ctx) error {
-	book := new(models.Book)
-	if err := c.BodyParser(book); err != nil {
+	ticket := new(models.Ticket)
+	if err := c.BodyParser(ticket); err != nil {
 		return c.Status(400).JSON(err.Error())
 	}
 
-	database.DB.Db.Create(&book)
+	database.DB.Db.Create(&ticket)
 
-	return c.Status(200).JSON(book)
+	return c.Status(200).JSON(ticket)
 }
 
 // AllBooks
 func AllBooks(c *fiber.Ctx) error {
-	books := []models.Book{}
-	database.DB.Db.Find(&books)
+	tickets := []models.Ticket{}
+	database.DB.Db.Find(&tickets)
 
-	return c.Status(200).JSON(books)
-}
-
-// Book
-func Book(c *fiber.Ctx) error {
-	book := []models.Book{}
-	title := new(models.Book)
-	if err := c.BodyParser(title); err != nil {
-		return c.Status(400).JSON(err.Error())
-	}
-	database.DB.Db.Where("title = ?", title.Title).Find(&book)
-	return c.Status(200).JSON(book)
+	return c.Status(200).JSON(tickets)
 }
 
 // Update
 func Update(c *fiber.Ctx) error {
-	book := []models.Book{}
-	title := new(models.Book)
-	if err := c.BodyParser(title); err != nil {
+	tickets := []models.Ticket{}
+	ticket := new(models.Ticket)
+	if err := c.BodyParser(ticket); err != nil {
 		return c.Status(400).JSON(err.Error())
 	}
 
-	database.DB.Db.Model(&book).Where("title = ?", title.Title).Update("author", title.Author)
+	database.DB.Db.Model(&tickets).Where("title = ?", ticket.Ticket).Update("author", ticket)
 
 	return c.Status(400).JSON("updated")
 }

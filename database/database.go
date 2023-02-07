@@ -16,7 +16,7 @@ var DB Dbinstance
 
 // connectDb
 func ConnectDb() {
-	dsn := "host=localhost user=postgres password='' dbname=go-db port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+	dsn := "host=localhost user=lucas password='lutador123' dbname=postgres port=5432 sslmode=disable"
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
